@@ -123,10 +123,10 @@ class PythonTestAPICommon:
         object.__mdm_func.Capture3DWindow(outputpath)
 
     def write_log(object, log_file_name, log):
-        return
+        object.__mdm_func.WriteLogFile(log_file_name, log)
 
     def undo(object):
-        return
+        object.__mdm_func.Undo()
 
     def redo(object):
-        return
+        object.__mdm_func.Redo()
