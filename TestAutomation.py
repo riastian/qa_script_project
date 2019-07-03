@@ -17,6 +17,7 @@ import os
 ## Class Name: AutoTest
 ## Purpose : QA Test Automation
 class AutoTest:
+    # export dxf 테스트 자동화 함수
     def export_dxf_automation(object):
         inputfolder = "E:/Python Test/Import Zprj/"
         outputfolder = "E:/Python Test/Export Dxf/"
@@ -40,7 +41,31 @@ class AutoTest:
         pta.m_bMetric = True
         pta.m_TestName = "First_Option"
         pta.export_dxf_multi(inputfilelist, outputfolder)
-        
+
+    # high quality rendering 테스트 자동화 함수
+    def render_automation(object):
+        return
+
+    # mode 변경 테스트 자동화 함수
+    def change_mode_automation(object):
+        return
+
+    # colorway mode 테스트 자동화 함수
+    def colorway_mode_automation(object):
+        return
+
+    # simulation speed 측정 테스트 자동화 함수
+    def simulation_speed_automation(object):
+        return
+
+    # file type별 로드/저장 테스트 자동화 함수
+    def file_load_save_automation(object):
+        return
+
+    # image file type별 pattern에 텍스쳐 적용 테스트 자동화 함수
+    def apply_texture_file_format_on_pattern_automation(object):
+        return
+
 
 ########### Classes for Python API by Software Engineers ############
 ## Purpose: Open Marvelous Designer functions to Python API for QA Test Automation
@@ -130,3 +155,26 @@ class PythonTestAPICommon:
 
     def redo(object):
         object.__mdm_func.Redo()
+
+####
+## Class Name: PythonTestAPIRender
+## Purpose: Open Python APIs for Render functions in QA Test Automation
+##
+class PythonTestAPIRender:
+    __mdm_func = MarvelousDesignerModule();
+
+    def execute_render(object):
+        return
+
+    def start_interactive_render(object):
+        return
+
+    def set_render_option(object):
+        return
+
+    def set_render_output_image_path(object, output_image_path):
+        return
+
+    def start_final_render(object):
+        return
+    
