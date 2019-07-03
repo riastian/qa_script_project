@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from PythonQt import QtCore, QtGui, MarvelousDesignerAPI
 from PythonQt.MarvelousDesignerAPI import *
 
@@ -17,7 +18,7 @@ import os
 ## Class Name: AutoTest
 ## Purpose : QA Test Automation
 class AutoTest:
-    # export dxf Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # export dxf í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def export_dxf_automation(object):
         inputfolder = "E:/Python Test/Import Zprj/"
         outputfolder = "E:/Python Test/Export Dxf/"
@@ -42,27 +43,27 @@ class AutoTest:
         pta.m_TestName = "First_Option"
         pta.export_dxf_multi(inputfilelist, outputfolder)
 
-    # high quality rendering Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # high quality rendering í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def render_automation(object):
         return
 
-    # mode º¯°æ Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # mode ë³€ê²½ í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def change_mode_automation(object):
         return
 
-    # colorway mode Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # colorway mode í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def colorway_mode_automation(object):
         return
 
-    # simulation speed ÃøÁ¤ Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # simulation speed ì¸¡ì • í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def simulation_speed_automation(object):
         return
 
-    # file typeº° ·Îµå/ÀúÀå Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # file typeë³„ ë¡œë“œ/ì €ì¥ í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def file_load_save_automation(object):
         return
 
-    # image file typeº° pattern¿¡ ÅØ½ºÃÄ Àû¿ë Å×½ºÆ® ÀÚµ¿È­ ÇÔ¼ö
+    # image file typeë³„ patternì— í…ìŠ¤ì³ ì ìš© í…ŒìŠ¤íŠ¸ ìë™í™” í•¨ìˆ˜
     def apply_texture_file_format_on_pattern_automation(object):
         return
 
