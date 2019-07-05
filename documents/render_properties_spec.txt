@@ -1,0 +1,41 @@
+
+C:\RenderProject
+
+renderAllColorways
+0 - single colorway
+1 - all colorway
+
+mediumType
+0 - image
+1 - turntable
+2 - animation
+
+viewpoint
+0 - current view
+1 - multi view
+
+turntableImageCount
+
+turntableDirection
+0 - counterclockwise
+1 - clockWise
+
+width
+
+height
+
+transparentBackground
+0 - transparent
+1 - not transparent
+
+backgroundColor
+
+renderEngineType
+0 - cpu
+1 - cuda
+2 - opencl
+
+noiseThreshold
+
+maxRenderTime
+

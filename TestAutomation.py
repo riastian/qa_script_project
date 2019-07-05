@@ -44,7 +44,10 @@ class AutoTest:
         pta.export_dxf_multi(inputfilelist, outputfolder)
 
     # high quality rendering 테스트 자동화 함수
-    def render_automation(object):
+    def interactive_render_automation(object):
+        return
+
+    def final_render_automation(object):
         return
 
     # mode 변경 테스트 자동화 함수
@@ -60,7 +63,10 @@ class AutoTest:
         return
 
     # file type별 로드/저장 테스트 자동화 함수
-    def file_load_save_automation(object):
+    def file_load_save_by_type_automation(object):
+        return
+
+    def file_load_save_by_version_automation(object):
         return
 
     # image file type별 pattern에 텍스쳐 적용 테스트 자동화 함수
@@ -165,17 +171,17 @@ class PythonTestAPIRender:
     __mdm_func = MarvelousDesignerModule();
 
     def execute_render(object):
-        return
+        object.__mdm_func.ExecuteRender()
 
     def start_interactive_render(object):
-        return
+        object.__mdm_func.StartInteractiveRender()
 
-    def set_render_option(object):
-        return
+    def set_render_option(object, json_file_path):
+        object.__mdm_func.SetRenderProperties(json_file_path)
 
     def set_render_output_image_path(object, output_image_path):
-        return
+        object.__mdm_func.SetRenderOutputImagePath(output_image_path)
 
     def start_final_render(object):
-        return
+        object.__mdm_func.StartFinalRender()
     

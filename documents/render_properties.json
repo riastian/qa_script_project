@@ -1,0 +1,14 @@
+{
+"renderAllColorways":1,
+"mediumType":0,
+"viewpoint":0,
+"turntableImageCount":4,
+"turntableDirection":0,
+"width":500,
+"height":500,
+"transparentBackground":0,
+"backgroundColor":[0.85,0.85,0.85],
+"renderEngineType":1,
+"noiseThreshold":0.01,
+"maxRenderTime":20,
+}
