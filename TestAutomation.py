@@ -20,8 +20,8 @@ import os
 class AutoTest:
     # export dxf 테스트 자동화 함수
     def export_dxf_automation(object):
-        inputfolder = "E:/Python Test/Import Zprj/"
-        outputfolder = "E:/Python Test/Export Dxf/"
+        inputfolder = "E:/Python Test/Import Zprj"
+        outputfolder = "E:/Python Test/Export DXF"
         allfilelist = os.listdir(inputfolder)
         inputfilelist = []
         for filename in allfilelist:
@@ -29,23 +29,52 @@ class AutoTest:
             if filext == ".zprj" or filext == ".Zprj":
                 inputfilelist.append(inputfolder + filename)
         pta = PythonTestAPIExportDXF()
-        pta.m_bSwapOutLine = False
-        pta.m_bDupliateNotch = False
-        pta.m_bCheckedConvertCtoS = False
-        pta.m_ExportWithoutGrading = False
-        pta.m_bOptimizeCurvePoints = False
-        pta.m_bExportWithoutBaselines = False
-        pta.m_ExportDXFFormatType = 1
-        pta.m_ExportBBType = 1
-        pta.m_fScale = 1.0
-        pta.m_RotateAngle = 0.0
-        pta.m_bMetric = True
-        pta.m_TestName = "First_Option"
-        pta.export_dxf_multi(inputfilelist, outputfolder)
+        for filename in inputfilelist:
+            ## Init export dxf options
+            pta.init_export_dxf_option()
+            ## first option
+            pta.m_TestName = "First_Option"
+            pta.export_dxf(filename, output_folder_path)
+            ## second option
+            pta.init_export_dxf_option()
+            pta.m_TestName = "Second_Option"
+            pta.m_RotateAngle = 45.0
+            pta.export_dxf(filename, output_folder_path)
+            ## third option
+            pta.init_export_dxf_option()
+            pat.m_TestName = "Third_Option"
+            pta.m_RotateAngle = 90.0
+            pta.m_fScale = 2.0
+            pta.export_dxf(filename, output_folder_path)
+            ## add to other options......
+            ## Write Log
 
-    # high quality rendering 테스트 자동화 함수
+        #pta.m_bSwapOutLine = False
+        #pta.m_bDupliateNotch = False
+        #pta.m_bCheckedConvertCtoS = False
+        #pta.m_ExportWithoutGrading = False
+        #pta.m_bOptimizeCurvePoints = False
+        #pta.m_bExportWithoutBaselines = False
+        #pta.m_ExportDXFFormatType = 1
+        #pta.m_ExportBBType = 1
+        #pta.m_fScale = 1.0
+        #pta.m_RotateAngle = 0.0
+        #pta.m_bMetric = True
+        #pta.m_TestName = "First_Option"
+        #pta.export_dxf_multi(inputfilelist, outputfolder)
+
+ # high quality rendering 테스트 자동화 함수
     def interactive_render_automation(object):
-        return
+        inputfolder = "E:/Python Test/Import Zprj"
+        outputfolder = "E:/Python Test/rendering test"
+        allfilelist = os.listdir(inputfolder)
+        inputfilelist = []
+        for filename in allfilelist:
+            filext = os.path.splitext(filename)[1]
+            if filext == ".zprj" or filext == ".Zprj":
+                inputfilelist.append(inputfolder + filename)
+        ptar = PythonTestAPIRender()
+        ptar.interactive_render_multi(inputfilelist, outputfolder)
 
     def final_render_automation(object):
         return
@@ -137,7 +166,21 @@ class PythonTestAPIExportDXF:
     def get_output_dxf_file_path(object, input_file, output_folder_path):
         onlyfilename = os.path.splitext(os.path.basename(input_file))[0]
         outputpath = output_folder_path + onlyfilename + "_" + object.m_TestName + ".dxf"
-        return outputpath        
+        return outputpath
+
+    def init_export_dxf_option(object):
+        m_bSwapOutLine = False
+        m_bDuplicateNotch = False
+        m_bCheckedConvertCtoS = False
+        m_bExportWithoutGrading = False
+        m_bOptimizeCurvePoints = False
+        m_bExportWithoutBaselines = False
+        m_ExportDXFFormatType = 1
+        m_ExportBBType = 1
+        m_fScale = 1.0
+        m_RotateAngle = 0.0
+        m_bMetric = True
+        m_TestName = "BaseTest"
 
 ####
 ## Class Name: PythonTestAPICommon
@@ -184,4 +227,53 @@ class PythonTestAPIRender:
 
     def start_final_render(object):
         object.__mdm_func.StartFinalRender()
+
+    def interactive_render(object, input_file, output_folder_path):
+        print("Trying to import zprj " + input_file)
+        object.__mdm_func.ImportZprj(input_file, True)
+        object.__mdm_func.ExecuteRender()
+        object.__mdm_func.StartInteractiveRender()
+        outputpath = object.get_output_capture_file_path(input_file, output_folder_path)        
+        object.__common.capture_screen(outputpath)
+        
+    def interactive_render_multi(object, input_file_list, output_folder_path):
+        for filename in input_file_list:
+            object.interactive_render(filename, output_folder_path)
+            ​
+    def get_output_capture_file_path(object, input_file, output_folder_path):
+        onlyfilename = os.path.splitext(os.path.basename(input_file))[0]
+        outputpath = output_folder_path + onlyfilename + "_screen_capture.jpg"
+        return outputpath
+    
+####
+## Class Name: PythonTestAPIModeChange
+## Purpose: Open Python APIs for Play Mode Change functions in QA Test Automation
+##
+class PythonTestAPIModeChange:
+    __mdm_func = MarvelousDesignerModule()
+
+    def execute_mode_change(object, test_file_path):
+        ## Write Log
+        ## Get PlayMode List
+        modeList = get_play_mode_list()
+        ## File Open
+        for fileName in test_file_path:
+            object.__mdm_func.ImportZprj(fileName, True)
+            ## Change Mode
+            for modename in modeList:
+                change_play_mode(modename, True)
+                ## Undo
+                object.__mdm_func.Undo()
+                ## Redo
+                object.__mdm_func.Redo()
+                ## Write Log
+            ## Write Log
+        ## Write Log
+
+    def get_play_mode_list(object):
+        return object.__mdm_func.GetPlayModeList()
+
+    def change_play_mode(object, mode_name, bUnRe):
+        object.__mdm_func.ChangePlayMode(mode_name, bUnRe)
+
     
