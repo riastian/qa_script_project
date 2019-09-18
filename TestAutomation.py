@@ -20,8 +20,8 @@ import os
 class AutoTest:
     # export dxf 테스트 자동화 함수
     def export_dxf_automation(object):
-        inputfolder = "E:/Python Test/Import Zprj"
-        outputfolder = "E:/Python Test/Export DXF"
+        inputfolder = "E:/Python Test/Import Zprj/"
+        outputfolder = "E:/Python Test/Export DXF/"
         allfilelist = os.listdir(inputfolder)
         inputfilelist = []
         for filename in allfilelist:
@@ -42,7 +42,7 @@ class AutoTest:
             pta.export_dxf(filename, output_folder_path)
             ## third option
             pta.init_export_dxf_option()
-            pat.m_TestName = "Third_Option"
+            pta.m_TestName = "Third_Option"
             pta.m_RotateAngle = 90.0
             pta.m_fScale = 2.0
             pta.export_dxf(filename, output_folder_path)
@@ -64,8 +64,8 @@ class AutoTest:
 
  # high quality rendering 테스트 자동화 함수
     def interactive_render_automation(object):
-        inputfolder = "E:/Python Test/Import Zprj"
-        outputfolder = "E:/Python Test/rendering test"
+        inputfolder = "E:/Python Test/Import Zprj/"
+        outputfolder = "E:/Python Test/rendering test/"
         allfilelist = os.listdir(inputfolder)
         inputfilelist = []
         for filename in allfilelist:
@@ -138,7 +138,8 @@ class PythonTestAPIExportDXF:
     m_bMetric = True
     m_TestName = "BaseTest"
     
-    __mdm_func = MarvelousDesignerModule();
+    __mdm_func = MarvelousDesignerModule()
+    
     def export_dxf(object, input_file, output_folder_path):
         print("Trying to import zprj " + input_file)
         print(object.__mdm_func.ImportZprj(input_file, True))
@@ -186,7 +187,8 @@ class PythonTestAPIExportDXF:
 ## Purpose: Open Python APIs for Common functions in QA Test Automation
 ##
 class PythonTestAPICommon:
-    __mdm_func = MarvelousDesignerModule();
+    __mdm_func = MarvelousDesignerModule()
+    
     def capture_screen(object, outputpath):
         object.__mdm_func.CaptureScreen(outputpath)
 
@@ -210,8 +212,9 @@ class PythonTestAPICommon:
 ## Purpose: Open Python APIs for Render functions in QA Test Automation
 ##
 class PythonTestAPIRender:
-    __mdm_func = MarvelousDesignerModule();
-
+    __mdm_func = MarvelousDesignerModule()
+    __common = PythonTestAPICommon()
+    
     def execute_render(object):
         object.__mdm_func.ExecuteRender()
 
@@ -250,7 +253,7 @@ class PythonTestAPIRender:
 ##
 class PythonTestAPIModeChange:
     __mdm_func = MarvelousDesignerModule()
-
+    
     def execute_mode_change(object, test_file_path):
         ## Write Log
         ## Get PlayMode List
