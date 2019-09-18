@@ -48,7 +48,6 @@ class AutoTest:
             pta.export_dxf(filename, output_folder_path)
             ## add to other options......
             ## Write Log
-
         #pta.m_bSwapOutLine = False
         #pta.m_bDupliateNotch = False
         #pta.m_bCheckedConvertCtoS = False
@@ -235,11 +234,11 @@ class PythonTestAPIRender:
         object.__mdm_func.StartInteractiveRender()
         outputpath = object.get_output_capture_file_path(input_file, output_folder_path)        
         object.__common.capture_screen(outputpath)
-        
+
     def interactive_render_multi(object, input_file_list, output_folder_path):
         for filename in input_file_list:
             object.interactive_render(filename, output_folder_path)
-            ​
+            
     def get_output_capture_file_path(object, input_file, output_folder_path):
         onlyfilename = os.path.splitext(os.path.basename(input_file))[0]
         outputpath = output_folder_path + onlyfilename + "_screen_capture.jpg"
