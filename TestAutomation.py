@@ -10,6 +10,7 @@ from PythonQt.MarvelousDesignerAPI import *
 
 import os
 #from os import path
+import time
 
 ########### Class for QA Automation by Test Engineers ############
 ## Owners: Jake, Diana
@@ -20,8 +21,8 @@ import os
 class AutoTest:
     # export dxf 테스트 자동화 함수
     def export_dxf_automation(object):
-        inputfolder = "E:/Python Test/Import Zprj/"
-        outputfolder = "E:/Python Test/Export DXF/"
+        inputfolder = "C:/Users/Public/Documents/Test Automation/project files"
+        outputfolder = "C:/Users/Public/Documents/Test Automation/dxf files"
         allfilelist = os.listdir(inputfolder)
         inputfilelist = []
         for filename in allfilelist:
@@ -64,8 +65,8 @@ class AutoTest:
 
  # high quality rendering 테스트 자동화 함수
     def interactive_render_automation(object):
-        inputfolder = "E:/Python Test/Import Zprj/"
-        outputfolder = "E:/Python Test/rendering test/"
+        inputfolder = "C:/Users/Public/Documents/Test Automation/project files/"
+        outputfolder = "C:/Users/Public/Documents/Test Automation/render/"
         allfilelist = os.listdir(inputfolder)
         inputfilelist = []
         for filename in allfilelist:
@@ -76,7 +77,16 @@ class AutoTest:
         ptar.interactive_render_multi(inputfilelist, outputfolder)
 
     def final_render_automation(object):
-        return
+        inputfolder = "C:/Users/Public/Documents/Test Automation/project files/"
+        outputfolder = "C:/Users/Public/Documents/Test Automation/render/"
+        allfilelist = os.listdir(inputfolder)
+        inputfilelist = []
+        for filename in allfilelist:
+            filext = os.path.splitext(filename)[1]
+            if filext == ".zprj" or filext == ".Zprj":
+                inputfilelist.append(inputfolder + filename)
+        ptar = PythonTestAPIRender()
+        ptar.final_render_multi(inputfilelist, outputfolder)
 
     # mode 변경 테스트 자동화 함수
     def change_mode_automation(object):
@@ -235,12 +245,26 @@ class PythonTestAPIRender:
         object.__mdm_func.ImportZprj(input_file, True)
         object.__mdm_func.ExecuteRender()
         object.__mdm_func.StartInteractiveRender()
-        outputpath = object.get_output_capture_file_path(input_file, output_folder_path)        
+        outputpath = object.get_output_capture_file_path(input_file, output_folder_path)
+        time.sleep(10)
+        object.__mdm_func.StartInteractiveRender()
         object.__common.capture_screen(outputpath)
 
     def interactive_render_multi(object, input_file_list, output_folder_path):
         for filename in input_file_list:
             object.interactive_render(filename, output_folder_path)
+
+    def final_render(object, input_file, output_folder_path):
+        print("Trying to import zprj " + input_file)
+        object.__mdm_func.ImportZprj(input_file, True)
+        object.__mdm_func.ExecuteRender()
+        object.__mdm_func.StartFinalRender()
+        outputpath = object.get_output_capture_file_path(input_file, output_folder_path)
+        object.__common.capture_screen(outputpath)
+
+    def final_render_multi(object, input_file_list, output_folder_path):
+        for filename in input_file_list:
+            object.final_render(filename, output_folder_path)
             
     def get_output_capture_file_path(object, input_file, output_folder_path):
         onlyfilename = os.path.splitext(os.path.basename(input_file))[0]
