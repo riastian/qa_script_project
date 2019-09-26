@@ -9,7 +9,6 @@ from PythonQt.MarvelousDesignerAPI import *
 # Software Engineers  : James, Joshua
 
 import os
-#from os import path
 import time
 
 ########### Class for QA Automation by Test Engineers ############
@@ -19,7 +18,6 @@ import time
 ## Class Name: AutoTest
 ## Purpose : QA Test Automation
 class AutoTest:
-    # export dxf 테스트 자동화 함수
     def export_dxf_automation(object):
         inputfolder = "C:/Users/Public/Documents/Test Automation/project files"
         outputfolder = "C:/Users/Public/Documents/Test Automation/dxf files"
@@ -63,7 +61,6 @@ class AutoTest:
         #pta.m_TestName = "First_Option"
         #pta.export_dxf_multi(inputfilelist, outputfolder)
 
- # high quality rendering 테스트 자동화 함수
     def interactive_render_automation(object):
         inputfolder = "C:/Users/Public/Documents/Test Automation/project files/"
         outputfolder = "C:/Users/Public/Documents/Test Automation/render/"
@@ -88,9 +85,16 @@ class AutoTest:
         ptar = PythonTestAPIRender()
         ptar.final_render_multi(inputfilelist, outputfolder)
 
-    # mode 변경 테스트 자동화 함수
     def change_mode_automation(object):
-        return
+        inputfolder = "C:/Users/Public/Documents/Test Automation/project files/"        
+        allfilelist = os.listdir(inputfolder)
+        inputfilelist = []
+        for filename in allfilelist:
+            filext = os.path.splitext(filename)[1]
+            if filext == ".zprj" or filext == ".Zprj":
+                inputfilelist.append(inputfolder + filename)
+        ptamc = PythonTestAPIModeChange()
+        ptamc.execute_mode_change(inputfilelist)
 
     # colorway mode 테스트 자동화 함수
     def colorway_mode_automation(object):
@@ -278,16 +282,16 @@ class PythonTestAPIRender:
 class PythonTestAPIModeChange:
     __mdm_func = MarvelousDesignerModule()
     
-    def execute_mode_change(object, test_file_path):
+    def execute_mode_change(object, input_file_list):
         ## Write Log
         ## Get PlayMode List
-        modeList = get_play_mode_list()
+        modeList = object.get_play_mode_list()
         ## File Open
-        for fileName in test_file_path:
+        for fileName in input_file_list:
             object.__mdm_func.ImportZprj(fileName, True)
             ## Change Mode
             for modename in modeList:
-                change_play_mode(modename, True)
+                object.change_play_mode(modename, True)
                 ## Undo
                 object.__mdm_func.Undo()
                 ## Redo
@@ -301,5 +305,3 @@ class PythonTestAPIModeChange:
 
     def change_play_mode(object, mode_name, bUnRe):
         object.__mdm_func.ChangePlayMode(mode_name, bUnRe)
-
-    
