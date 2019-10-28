@@ -63,24 +63,18 @@ class AutoTest:
         #pta.m_TestName = "First_Option"
         #pta.export_dxf_multi(inputfilelist, outputfolder)
 
- # high quality rendering 테스트 자동화 함수
-    def interactive_render_automation(object):
+ 
+    # mode 변경 테스트 자동화 함수
+    def change_mode_automation(object):
         inputfolder = "C:/Users/Public/Documents/Test Automation/project files/"
-        outputfolder = "C:/Users/Public/Documents/Test Automation/render/"
         allfilelist = os.listdir(inputfolder)
         inputfilelist = []
         for filename in allfilelist:
             filext = os.path.splitext(filename)[1]
             if filext == ".zprj" or filext == ".Zprj":
                 inputfilelist.append(inputfolder + filename)
-        ptar = PythonTestAPIRender()
-        ptar.interactive_render_multi(inputfilelist, outputfolder)
-
-    def final_render_automation(object):
-        return
-
-    # mode 변경 테스트 자동화 함수
-    def change_mode_automation(object):
+        ptamc = PythonTestAPIModeChange()
+        ptamc.execute_mode_change(inputfilelist)
         return
 
     # colorway mode 테스트 자동화 함수
@@ -262,13 +256,13 @@ class PythonTestAPIModeChange:
     def execute_mode_change(object, test_file_path):
         ## Write Log
         ## Get PlayMode List
-        modeList = get_play_mode_list()
+        modeList = object.get_play_mode_list()
         ## File Open
         for fileName in test_file_path:
             object.__mdm_func.ImportZprj(fileName, True)
             ## Change Mode
             for modename in modeList:
-                change_play_mode(modename, True)
+                object.change_play_mode(modename, True)
                 ## Undo
                 object.__mdm_func.Undo()
                 ## Redo
@@ -291,11 +285,19 @@ class PythonTestAPIAddColorway:
     __mdm_func = MarvelousDesignerModule()
     
     def add_colorway_test(object):
-        fileName = "C:/Users/Public/Documents/Test Automation/project files/test1.zprj"
+        inputfolder = "C:/Users/Public/Documents/Test Automation/project files/"
+        allfilelist = os.listdir(inputfolder)
+        inputfilelist = []
+        for filename in allfilelist:
+            filext = os.path.splitext(filename)[1]
+            if filext == ".zprj" or filext == ".Zprj":
+                inputfilelist.append(inputfolder + filename)
+        fileName = inputfilelist[0]
         object.__mdm_func.ImportZprj(fileName, True)
+        object.__mdm_func.ChangePlayMode("ColorWay", True)
         object.__mdm_func.AddColorway()
         time.sleep(2)
-        object.__mdm_func.Undo()
+        object.__mdm_func.Undo()        
         time.sleep(2)
         object.__mdm_func.Redo()
         time.sleep(2)
